@@ -1,0 +1,61 @@
+﻿<!-- ko with: home -->
+<div class="header  row">
+    <div class="col-6  col-md-3">
+        PLAYER:<br> <h4 data-bind="text:player" id="Player"></h4>
+    </div><!--/ col-4 -->
+    <div class="heads col-6">
+        <h3 id="headline">Play and Win</h3>
+    </div><!-- /col-4 -->
+    <div class="credits col-6  col-md-3">
+        CREDITS:<br><h4 data-bind="text:credit" id="credit"></h4>
+    </div><!--/ col-4 -->
+</div><!-- end header row -->
+<div class="three-to-one">
+    <div class="slots row no-gutters" id="reels ">
+        <canvas class="col-4" id="canvas1" width="100" height="300"></canvas>
+        <canvas class="col-4" id="canvas2" width="100" height="300"></canvas>
+        <canvas class="col-4" id="canvas3" width="100" height="300"></canvas>
+    </div><!--end row reels-->
+</div><!-- /three-to-one-->
+<div id="overlay">
+    <div id="winline"></div>
+</div>
+<div class="lever row no-gutters">
+    <div class="col-12">
+        <div role="button" tabindex=“0” id="play">PLAY</div>
+    </div><!-- /col-12 -->
+</div><!--/lever row-->
+<div class="result row no-gutters">
+    <div class="betbox col-4">
+        <p class="data">
+            <span id="BET">0</span>
+        </p>
+    </div><!-- col-4 -->
+    <div class="incrementals col-2">
+        <input type="image" src="img/adder.png" name="up" height=35 id="add"><br>
+        <input type="image" src="img/subber.png" name="down" height=35 id="subtract">
+    </div><!-- col-2- -->
+    <div class="col-6">
+        <p id="results">
+            <span id="resultstotal"></span>
+        </p>
+        <p id="status">
+            <span id="message"></span>
+        </p>
+    </div> <!-- /col-6 -->
+</div><!-- /result  row -->
+<!-- Loading overlay -->
+<div id="loading">
+    <p>Loading..</p>
+    <div id="progressbar">
+        <div id="progress"></div>
+    </div><!--/progressbar-->
+</div><!--/loading-->
+<div class="debug row">
+    <div class="col-4" id="audio_debug">Audio not supported</div><!--/col-4-->
+    <div class="col-8">
+        <div rolle=button id="login">LOGON</div>
+    </div><!-- col-4 -->
+</div><!--/debug row-->       
+
+<!-- /ko -->

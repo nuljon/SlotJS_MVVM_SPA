@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="An ASP.NET experiment using the Model-View-ViewModel Single Page Application design pattern (MVVM SPA).">
+    <meta name="author" content="Jon A. Nuljon">
+    <link rel="icon" href="http://nuljon.com/images/favicon.ico">
+    <title>LuckyFrogZ Slot.js @ViewBag.Title</title>
+    <!-- <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="" id="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="masthead container-fluid">
+
+                <img class="img-fluid" src="~/img/luckyfrogz.png" alt="LuckyFrogZ banner" />
+
+            </div><!--/masthead container-->
+        </div><!--/jumbotron-->
+
+
+
+        @RenderBody()
+        @RenderSection("SPAViews", required: false)
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Jon A. Nuljon @Html.ActionLink("{ }jon.com", "Spawn", "Home", null, null),</p>
+        </footer>
+    </div><!--/container-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+    
+   
+    <script type="text/javascript">$(function () { SlotGame(); });</script>
+    <!--<script type="text/javascript"></script> -->
+</body>
+</html>
