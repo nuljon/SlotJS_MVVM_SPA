@@ -6,9 +6,7 @@ var STATE_STOPPED = 5;
 var STATE_RESULTS = 6;
 var STATE_END = 7;
 //the Player's line of credit is from the HomeViewModel databank- ASP.NET version 
-// which we read in from the ko screen write at id# credits
-var credits = app.Views.Home.credit() * 1;
-    //Number($("#credit").val());
+var credits = 0;
 var bet = 0;
 var msgindex = 0; // the message to play from the MESSAGE_TABLE
 var progressCount = 0; // current progress count
@@ -330,6 +328,32 @@ function SlotGame() {
         _fill_canvas(game.c3[0], game.items3);
         game.resetOffset = (ITEM_COUNT + 3) * SLOT_HEIGHT;
 
+        // redraw canvases if called by orientation change or resize events
+        function resizeCanvas(event) {
+            // for each of our 3 canvases
+            for (var i = 0; i < 3; i++) {
+                // create  buffers as temp canvases out of view on our page
+                var buffer1, buffer2, buffer3;
+                //copy the contents of our 3 canvases
+
+            }
+            
+
+            // reinitialize global based on current window size
+            var IMAGE_HEIGHT = $(window).width() / 3 - 15;
+            // how many pixels one slot image takes
+            var SLOT_HEIGHT = IMAGE_HEIGHT + IMAGE_TOP_MARGIN + IMAGE_BOTTOM_MARGIN + SLOT_SEPARATOR_HEIGHT;
+            // update  the tags in our view
+            $('canvas').attr('height', SLOT_HEIGHT * ITEM_COUNT * 2);
+            $('canvas').css('height', SLOT_HEIGHT * ITEM_COUNT * 2);
+            $('canvas').css('width', IMAGE_HEIGHT);
+            $('canvas').attr('width', IMAGE_HEIGHT);
+            // $('#reels').attr('height',IMAGE_HEIGHT');
+            //     $('.reels').css('height',IMAGE_HEIGHT');
+            //      $('.reels').css('top',IMAGE_HEIGHT');
+
+        }
+
         // Start game loop
         game.loop();
 
@@ -342,6 +366,7 @@ function SlotGame() {
         function _startRoll(e) {
             $('#headline').text('Rolling!');
             //  game.audios.roll.play();  // moved this into last part of restart
+            app.Views.Home.UpdateCredits();
             game.restart();
         }
        
@@ -355,6 +380,11 @@ function SlotGame() {
                 $('#BET').text(bet);
             } //otherwise we do nothing
         }
+
+        //add listeners to catch orientation and resize event
+    //    window.addEventListener('resize', resizeCanvas, false);
+       // window.addEventListener('orientationchange', resizeCanvas, false);
+        
 
        // $('#login').on('click',{name: PlayerName}, logonView);
         $('#add').on('click',{amount: 5}, adjustBet);
@@ -446,12 +476,15 @@ Game.prototype.restart = function () {
 
 
   //access the Player's line of credit from  their local bank - non ASP.NET version
-     // credits = Number(localStorage.getItem('credits'));
+    // credits = Number(localStorage.getItem('credits'));
+
+    //ASP.NET version: credits issues from HomeViewModel databank
     credits = app.Views.Home.credit() * 1;
 
     //if they don't have any credit, introduce them to Benjamin Dole
     if ((credits === null || credits < bet) && bet < 10) {
         credits = 100;
+        // message the news to player
         msgindex = 5;
         $('#status').show();
         $('#message').text(MESSAGE_TABLE[msgindex]);
@@ -459,7 +492,7 @@ Game.prototype.restart = function () {
 
    // if Player cannot  cover the bet ?
      if (bet > credits ) {
-         // tell Player the bad news and return them whence they came
+         // msg Player the bad news and return them whence they came
          msgindex = 6;
         $('#status').show();
         $('#message').text(MESSAGE_TABLE[msgindex]);
@@ -471,8 +504,11 @@ Game.prototype.restart = function () {
     //non ASP.NET version - stash remaining credit back in local storage
     //localStorage.setItem("credits", credits);
 
+    //ASP.NET version - update ViewModel - ko should update screen
+    app.Views.Home.credit(credits);
+
     // update screen  to reflect recent business
-    $('#credit').text(credits); 
+    //$('#credit').text(credits); 
     $('#results').hide();
     $('#status').hide();     
 
@@ -635,8 +671,13 @@ Game.prototype.update = function () {
             $('#resultstotal').text("winnings: " + bet*matches);            
             $('#status').show();
             $('#message').text(MESSAGE_TABLE[msgindex]);
-        $('#credit').text(credits);    //update screen with new  credits total;
-           // localStorage.setItem("credit",credits);  //stuff the credit value in local storage
+                //update screen with new  credits total - non ASP.NET version
+                //$('#credit').text(credits);    
+                //stuff the credit value in local storage - non ASP.NET version
+                // localStorage.setItem("credit",credits);  
+            // ASP.NET version - update view model which ko should reflect to screen
+            app.Views.Home.credit(credits);
+            
             //celebrate
             if (matches === 100 || matches ===1000) {
                 // Play win sound

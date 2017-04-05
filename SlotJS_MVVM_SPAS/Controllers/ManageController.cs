@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SlotJS_MVVM_SPAS.Models;
+using System.Web.UI;
 
 namespace SlotJS_MVVM_SPAS.Controllers
 {
@@ -238,7 +239,7 @@ namespace SlotJS_MVVM_SPAS.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", "Home" );
             }
             AddErrors(result);
             return View(model);

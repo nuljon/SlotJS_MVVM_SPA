@@ -1,5 +1,5 @@
 ﻿<!-- ko with: home -->
-<div class="header  row">
+<div class="header row no-gutters">
     <div class="col-6  col-md-3">
         PLAYER:<br> <h4 data-bind="text:player" id="Player"></h4>
     </div><!--/ col-4 -->
@@ -10,6 +10,13 @@
         CREDITS:<br><h4 data-bind="text:credit" id="credit"></h4>
     </div><!--/ col-4 -->
 </div><!-- end header row -->
+<!-- Loading overlay -->
+<div id="loading">
+    <p>Loading..</p>
+    <div id="progressbar">
+        <div id="progress"></div>
+    </div><!--/progressbar-->
+</div><!--/loading-->
 <div class="three-to-one">
     <div class="slots row no-gutters" id="reels ">
         <canvas class="col-4" id="canvas1" width="100" height="300"></canvas>
@@ -22,11 +29,17 @@
 </div>
 <div class="lever row no-gutters">
     <div class="col-12">
-        <div role="button" tabindex=“0” id="play">PLAY</div>
+        <div role="button" tabindex=“0” id="play"><span id="put">PLAY</span></div>
     </div><!-- /col-12 -->
 </div><!--/lever row-->
 <div class="result row no-gutters">
-    <div class="betbox col-4">
+    <div class="BETS col-1" id="BETS">
+        B<br />
+        E<br />
+        T<br />
+        S
+    </div>
+    <div class="betbox col-3">
         <p class="data">
             <span id="BET">0</span>
         </p>
@@ -44,18 +57,21 @@
         </p>
     </div> <!-- /col-6 -->
 </div><!-- /result  row -->
-<!-- Loading overlay -->
-<div id="loading">
-    <p>Loading..</p>
-    <div id="progressbar">
-        <div id="progress"></div>
-    </div><!--/progressbar-->
-</div><!--/loading-->
-<div class="debug row">
-    <div class="col-4" id="audio_debug">Audio not supported</div><!--/col-4-->
-    <div class="col-8">
-        <div rolle=button id="login">LOGON</div>
-    </div><!-- col-4 -->
-</div><!--/debug row-->       
+<div class="row no-gutters">
+    <div class="col-6">
+        <div role="button" class="logout" id="copy"><span id="logout">LOG-OUT</span></div>
+    </div>
+    <div class="col-6">
+        <div role="button" class="custom" id="copy">@Html.ActionLink("ChangePassword", "ChangePassword", "Manage", new { area = "" }, new { id = "xPassword", @class = "link" })
+            </div>
+    </div>
+</div>
+<div class="debug row no-gutters">
+    <div class="col-12" id="audio_debug">Audio not supported</div><!--/col-12 -->
+</div><!--/debug row-->  
+
+@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "hidden" }))
+{ } 
+ 
 
 <!-- /ko -->

@@ -14,7 +14,7 @@ body
 	text-align: center;
 	color: #fff000;
 	background-color: #0000ff;
-	text-shadow: 2px 1px rgba(0, 0, 0, 0.24);
+	text-shadow: 2px 1px rgba(0, 0, 0, 0.90);
 }
 
 
@@ -34,7 +34,12 @@ h1
   }
 }
 
-
+@media (max-width: 375px) 
+{
+    body{
+        font-size:1rem;
+    }
+}
 
 h3 
 {
@@ -73,8 +78,7 @@ h4
 
 img
 {
-	max-width: 50%;
-	max-height: 50%
+	max-height: 50%;
 }
 
 .jumbotron
@@ -141,7 +145,7 @@ canvas #canvas1 #canvas2 #canvas3
 	border-color: #c3d530;
 }
 
-#play
+#play , #copy
 {
 	color: #3355ff;
 	/* text-shadow: 1px 2px #3e3e3e; */
@@ -172,7 +176,7 @@ canvas #canvas1 #canvas2 #canvas3
 	/*text-shadow: 3px 2px #3d3d3d;*/
 }
 
- .data 
+.data 
 {
 	font-family: slackey, arial, verdana;
 	font-size: 2rem;
@@ -190,6 +194,10 @@ canvas #canvas1 #canvas2 #canvas3
 {
 	vertical-align: middle;
 }
+#BETS
+{
+    font-size: 1rem;
+}
 
 .incremntals
 {
@@ -199,9 +207,23 @@ canvas #canvas1 #canvas2 #canvas3
 
 }
 
-#login
+.unused
 {
-	color: #55dd66;
+	color: #3355ff;
+	/* text-shadow: 1px 2px #3e3e3e; */
+	display:inline-block;
+    min-width: 40%;
+	min-height: 5%;
+	background: #fff000;
+	border:5px outset #ffffff;
+	border-radius: 1px;
+	margin: 0;
+}
+
+#button
+{
+    color: #55dd66;
+    font-family: slackey, arial, verdana;
 	/*text-shadow: 1px 2px #3e3e3e;*/
 	min-width: 50%;
 	min-height: 5%;
@@ -224,3 +246,33 @@ canvas #canvas1 #canvas2 #canvas3
 }
   
   
+a:link
+{
+	color: #f00;
+	/* text-shadow: 1px 2px #3e3e3e; */
+    text-decoration:none;
+}
+
+a:visited 
+{
+color:#f0f;
+text-decoration:none;
+}
+
+a:hover
+{
+color:#fff;
+text-decoration:none;
+}
+
+a:active
+{
+color:#0ff;
+text-decoration:none;
+}
+footer a:link
+{
+	color: #fff;
+	/* text-shadow: 1px 2px #3e3e3e; */
+    text-decoration:none;
+}

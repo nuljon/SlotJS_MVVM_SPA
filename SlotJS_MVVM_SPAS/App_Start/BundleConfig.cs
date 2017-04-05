@@ -36,12 +36,12 @@ namespace SlotJS_MVVM_SPAS
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                 "~/Scripts/tether.min.js",
-                "~/Scripts/bootstrap.min.js",
+                 "~/Scripts/tether/tether.min.js",
+                "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/tether.min.css",
+                "~/Content/tether/tether.min.css",
                 "~/Content/bootstrap.min.css",
                  "~/Content/bootstrap-grid.css",
                  "~/Content/styles.css"));
