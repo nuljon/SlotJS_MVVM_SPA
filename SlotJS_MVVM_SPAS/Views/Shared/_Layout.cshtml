@@ -7,7 +7,7 @@
     <meta name="author" content="Jon A. Nuljon">
     <link rel="icon" href="http://nuljon.com/images/favicon.ico">
     <title>LuckyFrogZ Slot.js @ViewBag.Title</title>
-    <!-- <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -28,7 +28,7 @@
         @RenderSection("SPAViews", required: false)
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Jon A. Nuljon @Html.ActionLink("{ }jon.com", "Spawn", "Home", null, null)</p>
+            <p>&copy; @DateTime.Now.Year - Jon A. Nuljon <a href="http://www.nuljon.com" target="_blank">{ }jon.com</a></p>
         </footer>
     </div><!--/container-->
 

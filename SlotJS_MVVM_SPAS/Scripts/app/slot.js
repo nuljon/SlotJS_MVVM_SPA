@@ -187,7 +187,7 @@ function initAudio(audios, callback) {
     }
 }
 
-var IMAGE_HEIGHT = $(window).width() / 3 - 15;
+var IMAGE_HEIGHT = $(window).width() / 3 - 15 > 266 ? 266 : $(window).width() / 3 - 15 ;
 var IMAGE_TOP_MARGIN = 0;
 var IMAGE_BOTTOM_MARGIN = 0;
 var SLOT_SEPARATOR_HEIGHT = 0;
@@ -260,14 +260,13 @@ function SlotGame() {
     } else {
         audios.intro = { path: 'SoundSlotsIntro'};
     }
-
+    
+    // write the correct canvas size attributes to our view
     $('canvas').attr('height', SLOT_HEIGHT * ITEM_COUNT *2);
     $('canvas').css('height', SLOT_HEIGHT * ITEM_COUNT * 2);
     $('canvas').css('width', IMAGE_HEIGHT);
     $('canvas').attr('width', IMAGE_HEIGHT);
-   // $('#reels').attr('height',IMAGE_HEIGHT');
-   //     $('.reels').css('height',IMAGE_HEIGHT');
-      //      $('.reels').css('top',IMAGE_HEIGHT');
+
 
     game.items = items;
     game.audios = audios;
@@ -328,31 +327,46 @@ function SlotGame() {
         _fill_canvas(game.c3[0], game.items3);
         game.resetOffset = (ITEM_COUNT + 3) * SLOT_HEIGHT;
 
-        // redraw canvases if called by orientation change or resize events
+      /*  // redraw canvases if called by orientation change or resize events
         function resizeCanvas(event) {
-            // for each of our 3 canvases
-            for (var i = 0; i < 3; i++) {
-                // create  buffers as temp canvases out of view on our page
-                var buffer1, buffer2, buffer3;
-                //copy the contents of our 3 canvases
-
+            var tempC = null;
+            var tempH = 0;
+            var tempW = 0;
+            var tempContext;
+            // for each of our 3 slot canvases
+            for (var i = 1; i < 4; i++) {
+                // create hidden buffer in our view
+                tempC = document.createElement('canvas');
+                tempC.setAttribute('id', 'tempc' + i);
+                tempH =  SLOT_HEIGHT * ITEM_COUNT * 2;
+                tempW = IMAGE_HEIGHT;
+                $('#tempc' + i).attr('height',tempH);
+                $('#tempc' + i).css('height', tempH);
+                $('#tempc' + i).css('width', tempW);
+                $('#tempc' + i).attr('width', tempW);
+                // get the context
+                var canvas = document.getElementById('canvas' + i);
+                tempContext = canvas.getContext('3d');
+                //load image and make a copy in buffer
+                var imgData = tempContext.getImageData(canvas,0, 0, tempW, tempH);
+                tempContext.putImageData('#tempc' + i, 0, 0);
             }
-            
-
-            // reinitialize global based on current window size
+            // update global width measure based on current window size
             var IMAGE_HEIGHT = $(window).width() / 3 - 15;
             // how many pixels one slot image takes
             var SLOT_HEIGHT = IMAGE_HEIGHT + IMAGE_TOP_MARGIN + IMAGE_BOTTOM_MARGIN + SLOT_SEPARATOR_HEIGHT;
-            // update  the tags in our view
-            $('canvas').attr('height', SLOT_HEIGHT * ITEM_COUNT * 2);
-            $('canvas').css('height', SLOT_HEIGHT * ITEM_COUNT * 2);
-            $('canvas').css('width', IMAGE_HEIGHT);
-            $('canvas').attr('width', IMAGE_HEIGHT);
-            // $('#reels').attr('height',IMAGE_HEIGHT');
-            //     $('.reels').css('height',IMAGE_HEIGHT');
-            //      $('.reels').css('top',IMAGE_HEIGHT');
-
-        }
+            // for each of our slot canvas
+            for (i = 1; 1 < 4; i++) {
+                // update  the canvas tags in our view
+                $('#canvas' + 1).attr('height', SLOT_HEIGHT * ITEM_COUNT * 2);
+                $('#canvas' + i).css('height', SLOT_HEIGHT * ITEM_COUNT * 2);
+                $('#canvas' + i).css('width', IMAGE_HEIGHT);
+                $('#canvas' + i).attr('width', IMAGE_HEIGHT);
+                // copy back to resized canvas
+                tempContext = canvas.getContext('2d');
+                tempContext.drawImage('#tempC' + i, 0, 0, tempC.width, tempC.height, 0, 0, SLOT_HEIGHT * ITEM_COUNT * 2, IMAGE_HEIGHT);                
+            }
+        }*/
 
         // Start game loop
         game.loop();
@@ -366,7 +380,6 @@ function SlotGame() {
         function _startRoll(e) {
             $('#headline').text('Rolling!');
             //  game.audios.roll.play();  // moved this into last part of restart
-            app.Views.Home.UpdateCredits();
             game.restart();
         }
        
@@ -382,8 +395,8 @@ function SlotGame() {
         }
 
         //add listeners to catch orientation and resize event
-    //    window.addEventListener('resize', resizeCanvas, false);
-       // window.addEventListener('orientationchange', resizeCanvas, false);
+      //  $('window').resize(resizeCanvas());
+        // window.addEventListener('orientationchange', resizeCanvas, false);
         
 
        // $('#login').on('click',{name: PlayerName}, logonView);
@@ -666,7 +679,6 @@ Game.prototype.update = function () {
            // calculate the results
            credits = credits+bet*matches;
            // and display them
-          //  $('#multiplier').text(matches);
             $('#results').show( );
             $('#resultstotal').text("winnings: " + bet*matches);            
             $('#status').show();
@@ -677,6 +689,8 @@ Game.prototype.update = function () {
                 // localStorage.setItem("credit",credits);  
             // ASP.NET version - update view model which ko should reflect to screen
             app.Views.Home.credit(credits);
+            // ASP.NET version - update the server db
+            app.Views.Home.UpdateCredits();
             
             //celebrate
             if (matches === 100 || matches ===1000) {
